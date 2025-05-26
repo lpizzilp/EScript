@@ -1,0 +1,28 @@
+INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES(29,'29 - Coppa Del Nonno', '2.5.151', CURRENT_TIMESTAMP, 'Aggiunta flags per gestione della coppa del nonno')
+go 
+
+
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.Catalogo_Sagre ADD
+	FlgCoppaNonno bit NOT NULL CONSTRAINT DF_Catalogo_Sagre_FlgCoppaNonno DEFAULT 0
+GO
+
+
+ALTER TABLE dbo.AnagraficaArticoli ADD
+	FlgCoppaNonno bit NOT NULL CONSTRAINT DF_AnagraficaArticoli_FlgCoppaNonno DEFAULT 0
+GO
+COMMIT
+
+
+

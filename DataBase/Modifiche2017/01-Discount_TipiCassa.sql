@@ -1,0 +1,22 @@
+/*   mercoledì 8 febbraio 2017 7.03.11   User: sa   Server: VMXP-SERVER   Database: SagraCopia   Application: MS SQLEM - Data Tools*/BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+
+/*use sagranave*/ 
+
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.TipiCassa ADD
+	Discount int NULL
+GO
+
+
+update tipicassa 
+set discount = 0 
+COMMIT

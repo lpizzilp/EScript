@@ -1,0 +1,38 @@
+INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES(21,'21 - Categori_ModificaFK.sql', '2.4.114', CURRENT_TIMESTAMP, 'INSERISCO KIAVE ESTERNA CON ANAGRAFICAARTICOLI')
+go
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.AnagraficaArticoli ADD CONSTRAINT
+	FK_AnagraficaArticoli_Categorie FOREIGN KEY
+	(
+	Id_Sagra,
+	IdCategoria
+	) REFERENCES dbo.Categorie
+	(
+	Id_Sagra,
+	IdCategoria
+	)
+GO
+ALTER TABLE dbo.AnagraficaArticoli ADD CONSTRAINT
+	FK_AnagraficaArticoli_Categorie1 FOREIGN KEY
+	(
+	Id_Sagra,
+	IdCategoriaR
+	) REFERENCES dbo.Categorie
+	(
+	Id_Sagra,
+	IdCategoria
+	)
+GO
+COMMIT

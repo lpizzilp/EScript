@@ -1,0 +1,64 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+CREATE TABLE dbo.CodaReparto
+	(
+	Id_Sagra char(5) NOT NULL,
+	IdOrdine int NOT NULL,
+	DataContabile char(8) NOT NULL,
+	IdReparto char(1) NOT NULL,
+	NumCoda int NOT NULL
+	)  ON [PRIMARY]
+
+GO
+COMMIT
+grant  select, insert, update , delete  on  dbo.CodaReparto to public
+commit 
+
+'indice 
+BEGIN TRANSACTION
+ALTER TABLE dbo.CodaReparto ADD CONSTRAINT
+	PK_CodaReparto PRIMARY KEY CLUSTERED 
+	(
+	Id_Sagra,
+	IdOrdine,
+	DataContabile,
+	IdReparto
+	) ON [PRIMARY]
+
+GO
+COMMIT
+
+' chiave secondaria 
+BEGIN TRANSACTION
+ALTER TABLE dbo.CodaReparto WITH NOCHECK ADD CONSTRAINT
+	FK_CodaReparto_Ordini FOREIGN KEY
+	(
+	Id_Sagra,
+	IdOrdine
+	) REFERENCES dbo.Ordini
+	(
+	Id_Sagra,
+	IDOrdine
+	) ON DELETE CASCADE
+	
+GO
+COMMIT
+
+'REPARTI aggiungo il campo 
+
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.Reparti ADD
+	FlgGestioneCoda bit NULL
+GO
+COMMIT
+

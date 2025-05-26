@@ -1,0 +1,24 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+
+INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES(31,'31 - NotificaEsaurito', '2.5.175', CURRENT_TIMESTAMP, 'Notifica all operatore della cucina che Larticolo è arrivato a 0')
+go 
+/*
+   martedì 27 giugno 2023 15.39.28
+*/
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.Esauriti ADD
+	StatoNotifica int NOT NULL CONSTRAINT DF_Esauriti_StatoNotifica DEFAULT 0
+GO
+COMMIT
+
+

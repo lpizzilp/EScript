@@ -1,0 +1,22 @@
+INSERT INTO ScriptDB([ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES('4_2-StampeReport-CreateUniqueIndex.sql', 'xx', CURRENT_TIMESTAMP, '')
+go
+/*   lunedì 28 agosto 2017 13.09.28   User: sa   Server: VMXP-SERVER   Database: SagraCopia   Application: MS SQLEM - Data Tools*/BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.StampeReport ADD CONSTRAINT
+	PK_StampeReport PRIMARY KEY CLUSTERED 
+	(
+	IdForm,
+	IdStampa
+	) ON [PRIMARY]
+
+GO
+COMMIT

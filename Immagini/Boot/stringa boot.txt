@@ -1,0 +1,7 @@
+Inserire il file boot.bmp nella cartella c:/window. Se esiste rinnomi esistente con .old e metti il nuove 
+
+nel boot.ini 
+Mettere in fondo alla riga per l'avvio della partizione :
+
+/bootlogo /noguiboot
+

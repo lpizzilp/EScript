@@ -1,0 +1,30 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+
+INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES(34,'34 - Prenotazione Ore', '3.0.750', CURRENT_TIMESTAMP, 'Prenotazione allargata alle ore')
+GO
+
+ALTER TABLE dbo.AnagraficaArticoli
+	DROP COLUMN DataFinePRT
+GO
+COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.AnagraficaArticoli ADD
+	DataFinePRT datetime NULL,
+	FlgObbPRT bit NOT NULL CONSTRAINT DF_AnagraficaArticoli_FlgObbPRT DEFAULT 0
+GO
+COMMIT
+
+BEGIN TRANSACTION
+UPDATE dbo.AnagraficaArticoli SET flgPrenotabile = 0 
+GO
+COMMIT
+

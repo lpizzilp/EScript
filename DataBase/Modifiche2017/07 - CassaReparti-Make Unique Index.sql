@@ -1,0 +1,62 @@
+INSERT INTO ScriptDB([ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES('7 - CassaReparti-Make Unique Index.sql', 'xx', CURRENT_TIMESTAMP, '')
+go
+
+
+
+/*   mercoledì 23 agosto 2017 23.33.18   User: sa   Server: VMXP-SERVER   Database: SagraCopia   Application: MS SQLEM - Data Tools*/BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+DROP INDEX dbo.CassaReparti.IX_CassaReparti
+GO
+ALTER TABLE dbo.CassaReparti ADD CONSTRAINT
+	IX_CassaReparti UNIQUE NONCLUSTERED 
+	(
+	Id_Sagra,
+	IdCassa,
+	IdReparto
+	) WITH FILLFACTOR = 90 ON [PRIMARY]
+
+GO
+COMMIT
+
+BEGIN TRANSACTION
+ALTER TABLE dbo.ExclusionList
+	DROP CONSTRAINT FK_ExclusionList_CassaReparti
+GO
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.CassaReparti
+	DROP CONSTRAINT PK_CassaReparti
+GO
+ALTER TABLE dbo.CassaReparti ADD CONSTRAINT
+	PK_CassaReparti PRIMARY KEY CLUSTERED 
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) WITH FILLFACTOR = 90 ON [PRIMARY]
+
+GO
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.ExclusionList ADD CONSTRAINT
+	FK_ExclusionList_CassaReparti1 FOREIGN KEY
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) REFERENCES dbo.CassaReparti
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) ON DELETE CASCADE
+	
+GO
+COMMIT
+

@@ -1,0 +1,45 @@
+INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
+VALUES(22,'22 - Cassareparti FK.sql', '2.4.114', CURRENT_TIMESTAMP, 'sISTEMO LE fk della tabella cassareparti')
+go
+
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.ExclusionList
+	DROP CONSTRAINT FK_ExclusionList_CassaReparti
+GO
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.CassaReparti
+	DROP CONSTRAINT PK_CassaReparti
+GO
+ALTER TABLE dbo.CassaReparti ADD CONSTRAINT
+	PK_CassaReparti PRIMARY KEY CLUSTERED 
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) WITH FILLFACTOR = 90 ON [PRIMARY]
+
+GO
+COMMIT
+BEGIN TRANSACTION
+ALTER TABLE dbo.ExclusionList ADD CONSTRAINT
+	FK_ExclusionList_CassaReparti1 FOREIGN KEY
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) REFERENCES dbo.CassaReparti
+	(
+	IdCassaReparti,
+	Id_Sagra
+	) ON DELETE CASCADE
+	
+GO
+COMMIT
