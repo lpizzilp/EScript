@@ -3,12 +3,13 @@ GO
 SET NOCOUNT ON 
 DECLARE @dbName sysname 
 DECLARE @IDSAGRA NVARCHAR(10) 
+DECLARE @backupPath NVARCHAR(500) 
 -- -------------------------------------
-SET @dbName = 'SagraMulti' ---ATTENZIONE: DA CAMBIARE ANCHE SOTTO find use 
-SET @IDSAGRA = '001'
+SET @dbName = 'SagraMulti' -->>>>> ATTENZIONE: DA CAMBIARE ANCHE SOTTO find use 
+SET @backupPath = 'c:\Progcomuni\BACKUP\' 
+SET @IDSAGRA = '100'
 -- -------------------------------------
 -- 1 - Variable declaration 
-DECLARE @backupPath NVARCHAR(500) 
 DECLARE @cmd NVARCHAR(500) 
 DECLARE @lastFullBackup NVARCHAR(500) 
 DECLARE @lastDiffBackup NVARCHAR(500) 
@@ -17,15 +18,11 @@ DECLARE @CRLF VARCHAR(100)
 DECLARE @SEP VARCHAR(100)
 DECLARE @ORDINE NVARCHAR(10)
 
-
-
 -- -------------------------------------
 -- 2 - Initialize variables 
 -- -------------------------------------
-SET @backupPath = 'D:\BACKUP\' 
 SET @CRLF = CHAR(13)+CHAR(10)
 SET @SEP = @CRLF + '-------------------------------------'  
-
 
 -- -------------------------------------
 -- 3 - get list of files 
@@ -92,8 +89,6 @@ use SagraMulti ;
 
 -- -------------------------------------
 -- 7 - set user operative
-set @cmd = 'use ' + @dbName 
-exec sp_executesql @cmd 
 
 EXEC sp_revokedbaccess 'sagra'
 EXEC sp_grantdbaccess 'sagra'

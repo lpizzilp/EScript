@@ -1,0 +1,141 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+
+BEGIN TRANSACTION
+
+DELETE FROM dbo.SPONSOR
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+ALTER TABLE dbo.Sponsor ADD CONSTRAINT
+	FK_Sponsor_Catalogo_Sagre FOREIGN KEY
+	(
+	Id_Sagra
+	) REFERENCES dbo.Catalogo_Sagre
+	(
+	Id_Sagra
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+
+BEGIN TRANSACTION
+DELETE FROM dbo.TblSconto
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+
+ALTER TABLE dbo.TblSconto ADD CONSTRAINT
+	FK_TblSconto_Catalogo_Sagre FOREIGN KEY
+	(
+	Id_Sagra
+	) REFERENCES dbo.Catalogo_Sagre
+	(
+	Id_Sagra
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+
+BEGIN TRANSACTION
+DELETE FROM dbo.Ordini
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+ALTER TABLE dbo.Ordini WITH NOCHECK ADD CONSTRAINT
+	FK_Ordini_Catalogo_Sagre FOREIGN KEY
+	(
+	Id_Sagra
+	) REFERENCES dbo.Catalogo_Sagre
+	(
+	Id_Sagra
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+
+BEGIN TRANSACTION
+DELETE FROM dbo.AnagraficaArticoli
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+ALTER TABLE dbo.AnagraficaArticoli WITH NOCHECK ADD CONSTRAINT
+	FK_AnagraficaArticoli_Catalogo_Sagre FOREIGN KEY
+	(
+	Id_Sagra
+	) REFERENCES dbo.Catalogo_Sagre
+	(
+	Id_Sagra
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+BEGIN TRANSACTION
+DELETE FROM dbo.AnaArtComposti
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+
+
+ALTER TABLE dbo.AnaArtComposti ADD CONSTRAINT
+	FK_AnaArtComposti_AnagraficaArticoli FOREIGN KEY
+	(
+	Id_Sagra,
+	IdArticolo
+	) REFERENCES dbo.AnagraficaArticoli
+	(
+	Id_Sagra,
+	IdArticolo
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+
+BEGIN TRANSACTION
+DELETE FROM dbo.ArtSospesi
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+ALTER TABLE dbo.ArtSospesi ADD CONSTRAINT
+	FK_ArtSospesi_AnagraficaArticoli FOREIGN KEY
+	(
+	Id_Sagra,
+	IdArticolo
+	) REFERENCES dbo.AnagraficaArticoli
+	(
+	Id_Sagra,
+	IdArticolo
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT
+
+BEGIN TRANSACTION
+DELETE FROM dbo.Categorie
+WHERE Id_Sagra NOT IN (SELECT Id_Sagra FROM dbo.Catalogo_Sagre)
+
+
+ALTER TABLE dbo.Categorie ADD CONSTRAINT
+	FK_Categorie_Catalogo_Sagre FOREIGN KEY
+	(
+	Id_Sagra
+	) REFERENCES dbo.Catalogo_Sagre
+	(
+	Id_Sagra
+	) ON DELETE CASCADE
+	 NOT FOR REPLICATION
+
+
+COMMIT

@@ -8,7 +8,7 @@ SET ANSI_PADDING ON
 SET ANSI_WARNINGS ON
 
 INSERT INTO ScriptDB([DDLVersion], [ScriptName], [SwVersione], [DataInserimento], [Note])
-VALUES(34,'34 - Prenotazione Ore', '3.0.750', CURRENT_TIMESTAMP, 'Prenotazione allargata alle ore')
+VALUES(34,'34 - Prenotazione Ore', '3.0.75', CURRENT_TIMESTAMP, 'Prenotazione allargata alle ore')
 GO
 
 ALTER TABLE dbo.AnagraficaArticoli
